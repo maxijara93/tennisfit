@@ -16,7 +16,7 @@ function removeTokenFromUrl() {
   window.history.replaceState({}, "", url.toString());
 }
 
-function Pill({ children, tone = "neutral" }) {
+function Pill({ children, tone = "neutral" }: { children: React.ReactNode; tone?: string }) {
   const cls =
     tone === "green"
       ? "bg-green-100 text-green-800"
@@ -92,10 +92,10 @@ export default function CreateOrEditClassPage() {
         setAttendanceMap(init);
 
         setStatusMsg("");
+    })();
       } catch (e) {
         setStatusMsg(String(e.message || e));
       }
-    })();
   }, [token]);
 
   // load classes list when entering edit mode
