@@ -74,29 +74,32 @@ export default function CreateOrEditClassPage() {
 
   // load players
   useEffect(() => {
-    if (!token) return;
+  if (!token) return;
 
-    (async () => {
-      try {
-        setStatusMsg("Cargando jugadores...");
-        const res = await fetch("/api/form-config", {
-          headers: { "X-COACH-TOKEN": token },
-        });
-        if (!res.ok) throw new Error(await res.text());
-        const data = await res.json();
-        const plist = data.players || [];
-        setPlayers(plist);
+  (async () => {
+    try {
+      setStatusMsg("Cargando jugadores...");
+      const res = await fetch("/api/form-config", {
+        headers: { "X-COACH-TOKEN": token },
+      });
+      if (!res.ok) throw new Error(await res.text());
 
-        const init = {};
-        for (const p of plist) init[p.player_id] = { present: false, wins: 0 };
-        setAttendanceMap(init);
+      const data = await res.json();
+      const plist = data.players || [];
+      setPlayers(plist);
 
-        setStatusMsg("");
-    })();
-      } catch (e) {
-        setStatusMsg(String(e.message || e));
+      const init: Record<string, { present: boolean; wins: number }> = {};
+      for (const p of plist) {
+        init[p.player_id] = { present: false, wins: 0 };
       }
-  }, [token]);
+      setAttendanceMap(init);
+
+      setStatusMsg("");
+    } catch (e: any) {
+      setStatusMsg(String(e?.message || e));
+    }
+  })();
+}, [token]);
 
   // load classes list when entering edit mode
   useEffect(() => {
