@@ -9,7 +9,7 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "BACKEND_URL not set" }, { status: 500 });
   }
 
-  const upstream = `${base}?route=ranking&mes=${encodeURIComponent(mes)}`;
+  const upstream = `${base}/api/ranking&mes=${encodeURIComponent(mes)}`;
   const r = await fetch(upstream, { cache: "no-store", redirect: "follow" });
 
   const contentType = r.headers.get("content-type") || "";

@@ -7,7 +7,7 @@
 
     if (!base) return NextResponse.json({ error: "BACKEND_URL not set" }, { status: 500 });
 
-    const upstream = `${base}?route=timeseries&mes=${encodeURIComponent(mes)}&granularity=week`;
+    const upstream = `${base}/api/timeseries&mes=${encodeURIComponent(mes)}&granularity=week`;
     const r = await fetch(upstream, { cache: "no-store" });
     const data = await r.json();
 
