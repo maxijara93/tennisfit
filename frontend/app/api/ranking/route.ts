@@ -3,10 +3,10 @@ import { NextResponse } from "next/server";
 export async function GET(req: Request) {
   const url = new URL(req.url);
   const mes = url.searchParams.get("mes") || "";
-  const base = process.env.APPS_SCRIPT_URL;
+  const base = process.env.BACKEND_URL;
 
   if (!base) {
-    return NextResponse.json({ error: "APPS_SCRIPT_URL not set" }, { status: 500 });
+    return NextResponse.json({ error: "BACKEND_URL not set" }, { status: 500 });
   }
 
   const upstream = `${base}?route=ranking&mes=${encodeURIComponent(mes)}`;

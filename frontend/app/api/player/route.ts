@@ -4,9 +4,9 @@ export async function GET(req: Request) {
   const url = new URL(req.url);
   const mes = url.searchParams.get("mes") || "";
   const id = url.searchParams.get("id") || "";
-  const base = process.env.APPS_SCRIPT_URL;
+  const base = process.env.BACKEND_URL;
 
-  if (!base) return NextResponse.json({ error: "APPS_SCRIPT_URL not set" }, { status: 500 });
+  if (!base) return NextResponse.json({ error: "BACKEND_URL not set" }, { status: 500 });
 
   const upstream = `${base}?route=player&mes=${encodeURIComponent(mes)}&id=${encodeURIComponent(id)}`;
   const r = await fetch(upstream, { cache: "no-store" });
